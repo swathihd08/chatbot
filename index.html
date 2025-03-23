@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+        .chat-container {
+            width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px gray;
+            border-radius: 10px;
+        }
+        .chat-box {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        .input-area {
+            margin-top: 10px;
+        }
+        input {
+            width: 80%;
+            padding: 8px;
+        }
+        button {
+            padding: 8px 12px;
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chat-container">
+    <h2>Chatbot</h2>
+    <div class="chat-box" id="chat-box">
+        <p><strong>Bot:</strong> Hi! How can I help you?</p>
+    </div>
+    <div class="input-area">
+        <input type="text" id="user-input" placeholder="Type your message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script>
+    function sendMessage() {
+        let userInput = document.getElementById("user-input").value.trim();
+        let chatBox = document.getElementById("chat-box");
+
+        if (userInput === "") return;
+
+        // Display user message
+        chatBox.innerHTML += <p><strong>You:</strong> ${userInput}</p>;
+        document.getElementById("user-input").value = "";
+
+        // Generate bot response
+        let botReply = getBotResponse(userInput);
+
+        // Display bot response
+        setTimeout(() => {
+            chatBox.innerHTML += <p><strong>Bot:</strong> ${botReply}</p>;
+            chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to latest message
+        }, 500);
+    }
+
+    function getBotResponse(input) {
+        input = input.toLowerCase();
+
+        const responses = {
+            "hi": "Hello! How can I assist you?",
+            "hello": "Hi there! What do you need help with?",
+            "how are you": "I'm just a bot, but I'm here to help!",
+            "bye": "Goodbye! Have a great day!",
+            "who are you": "I'm a simple chatbot created to assist you."
+        };
+
+        return responses[input] || "Sorry, I don't understand that.";
+    }
+</script>
+
+</body>
+</html>
